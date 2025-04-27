@@ -1,3 +1,5 @@
+# handkle the FileNotFoundError excception
+
 import sys
 import warnings
 # import os
@@ -126,7 +128,7 @@ class Maze(): # getting a text file to represent a maze language by symbols
 		for i , row in enumerate(self.walls):
 			for j, col in enumerate(row):
 				if col: # if there's a wall
-					print("#", end="")
+					print("█", end="")
 				elif (i,j)==self.start:
 					print("A", end="")
 				elif (i,j)==self.goal:
