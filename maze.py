@@ -2,6 +2,12 @@ import sys
 import warnings
 # import os
 
+
+# to have user configured exception (more clearly defined); e.g. "fileInputException: maze must have exactly one start point"
+class fileInputException(Exception):
+	...
+
+
 class Node:
 	"""docstring for None"""
 	def __init__(self, state, parent, action):
@@ -9,8 +15,6 @@ class Node:
 		self.state = state  # (i, j) tuple - for (row, col)
 		self.parent = parent # the node from which we progressed (starts from None at the beginning)
 		self.action = action  # "up", "down", "left", "right"
-
-
 
 
 class StackFrontier(): # remind that a Stack is last-in first-out 'data-structure' ('depth for search' DFS algorithm)
@@ -23,6 +27,7 @@ class StackFrontier(): # remind that a Stack is last-in first-out 'data-structur
 
 
 	def contains_state(self, state):
+		# when adding neighbors to the frontier, we want to ensure that it's state is not among the current listed frontier nodes states
 		return any(node.state == state for node in self.frontier)
 
 	def empty(self):  # TBD is_empty? instead?
@@ -36,8 +41,6 @@ class StackFrontier(): # remind that a Stack is last-in first-out 'data-structur
 			node = self.frontier[-1]
 			self.frontier = self.frontier[:-1] #TBD will also .pop() works here? (instead of these 2 lines)
 			return node # I guess we shall pass it to the set (since we've been visiting here)
-
-
 
 
 # inheriting from above class, in case we decide to implement the shallow scan Algorithm
@@ -70,7 +73,6 @@ class Maze(): # getting a text file to represent a maze language by symbols
 		finally: cls._factory_creation = False  # Reset flag afterward
 
 
-
 	def __init__(self, filename):
 		"""Warning: Avoid direct instantiation. Use Maze.create() instead!"""
 		if not self.__class__._factory_creation:
@@ -78,15 +80,15 @@ class Maze(): # getting a text file to represent a maze language by symbols
 
 
 		#Read file and set height and width of maze
-		with open(filename) as f:  # TBD exception are missing?
+		with open(filename) as f:  # TBD exception are missing?  (TBD I can also add self.content with setter validation to account for content inspection and proper exceptions)
 			contents = f.read()
 
 
 		# validate start and goal
 		if contents.count("A") != 1:
-			raise Exception("maze must have exactly one start point")
+			raise fileInputException("maze must have exactly one start point")
 		if contents.count("B") != 1:
-			raise Exception("maze must have exactly one end point")
+			raise fileInputException("maze must have exactly one end point")
 
 
 		# Determines height and width of maze
@@ -135,7 +137,6 @@ class Maze(): # getting a text file to represent a maze language by symbols
 					print(" ", end="")
 			print()
 		print()
-
 
 				
 	def neighbors(self, state):
@@ -211,7 +212,6 @@ class Maze(): # getting a text file to represent a maze language by symbols
 					frontier.add(child)
 
 
-
 def main():
 	my_maze = Maze.create("./maze2.txt")
 	# my_maze = Maze("./maze2.txt") # this shall result with the warning: "UserWarning: Direct instantiation may raise exceptions. Use Maze.create() instead."
@@ -219,8 +219,6 @@ def main():
 	if my_maze != None:
 		my_maze.solve()
 		my_maze.print()
-
-
 
 
 if __name__ == "__main__":
