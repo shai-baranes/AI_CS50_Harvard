@@ -1,2 +1,1 @@
-warnings
-pillow
+pillow>=11.2

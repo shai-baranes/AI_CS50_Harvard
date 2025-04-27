@@ -1,4 +1,4 @@
-# handkle the FileNotFoundError excception
+# handle the FileNotFoundError exception
 
 import sys
 import warnings
@@ -61,7 +61,7 @@ class QueueFrontier(StackFrontier):
 
 class Maze(): # getting a text file to represent a maze language by symbols
 	"""Maze solver class. Use Maze.create(filename) instead of direct instantiation."""
-	_factory_creation = False  # Class-level flag - > t otrigger the warning only upon direct instantiation and not upon using the create() method
+	_factory_creation = False  # Class-level flag - > to trigger the warning only upon direct instantiation and not upon using the create() method
 
 	@classmethod
 	def create(cls, filename):
@@ -82,6 +82,7 @@ class Maze(): # getting a text file to represent a maze language by symbols
 
 
 		#Read file and set height and width of maze
+		# note thaht the build-in exception is raise anyhow to the create(cls, filename) class method
 		with open(filename) as f:  # TBD exception are missing?  (TBD I can also add self.content with setter validation to account for content inspection and proper exceptions)
 			contents = f.read()
 
