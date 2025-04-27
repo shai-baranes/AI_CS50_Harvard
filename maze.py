@@ -228,3 +228,4 @@ if __name__ == "__main__":
 
 # bad input #1 deliberately
 
+# Good input #2
