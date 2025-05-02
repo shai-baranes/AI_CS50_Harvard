@@ -1,5 +1,12 @@
 # handle the FileNotFoundError exception
 
+# note that:
+# >> "\\".join(sys.argv[0].split('\\')[:-1]) # returns --> 'C:\\Python_Rust_Removal\\AI_CS50_Harvard\\Maze'
+
+from pathlib import Path
+script_path = Path(__file__).parent
+
+
 import sys
 import warnings
 # import os
@@ -79,6 +86,7 @@ class Maze(): # getting a text file to represent a maze language by symbols
 		"""Warning: Avoid direct instantiation. Use Maze.create() instead!"""
 		if not self.__class__._factory_creation:
 			warnings.warn("Direct instantiation may raise exceptions. Use Maze.create() instead.", UserWarning,stacklevel=2)
+
 
 
 		#Read file and set height and width of maze
@@ -216,7 +224,8 @@ class Maze(): # getting a text file to represent a maze language by symbols
 
 
 def main():
-	my_maze = Maze.create("./maze2.txt")
+	my_maze = Maze.create(script_path / "maze2.txt") # makes it more robust (earlier it failed when using the new build system with inner directory instead of the prior root)
+	# my_maze = Maze.create(".Maze/maze2.txt")
 	# my_maze = Maze("./maze2.txt") # this shall result with the warning: "UserWarning: Direct instantiation may raise exceptions. Use Maze.create() instead."
 
 	if my_maze != None:
