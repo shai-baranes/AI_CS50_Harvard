@@ -5,13 +5,5 @@
 > under 'clue.py', we're using the 'termcolor' module supporting user defined color for any text print to console :)
 > . e.g. >> import termcolor / >> termcolor.cprint(f"{symbol}: YES", "green")
 
-
-
-TBD - for GIT:
-
-	Always test your alias with: >> git config --get alias.[YOUR_ALIAS]
-    getting all configured aliases: >>git config --get-regexp ^alias
-
-
-
-    ddd
+> check on your aliases by: > git config --get-regexp ^alias
+> chec kon  a specific alise by: > git config --get alias.[YOUR_ALIAS]  

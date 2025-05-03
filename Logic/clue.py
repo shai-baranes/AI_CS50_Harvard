@@ -7,10 +7,10 @@ ProPlum = Symbol("ProPlum") # Prof. Plum is in the envelope
 MsScarlet = Symbol("MsScarlet") # Ms. Scarlet is in the envelope
 characters = [ColMustard, ProPlum, MsScarlet]
 
-ballroon = Symbol("ballroon") # the Ballroon room is in the envelope
+ballroom = Symbol("ballroom") # the Ballroom room is in the envelope
 kitchen = Symbol("kitchen") # the Kitchen room is in the envelope
 library = Symbol("library") # the Library room is in the envelope
-rooms = [ballroon, kitchen, library]
+rooms = [ballroom, kitchen, library]
 
 knife = Symbol("knife") # the Knife weapon  is in the envelope
 revolver = Symbol("revolver") # the Revolver weapon  is in the envelope
@@ -18,6 +18,8 @@ wrench = Symbol("wrench") # the Revolver Wrench  is in the envelope
 weapons = [knife, revolver, wrench]
 
 symbols = characters + rooms + weapons
+
+
 
 
 def check_knowledge(knowledge):
@@ -31,11 +33,9 @@ def check_knowledge(knowledge):
 
 
 
-
-
 knowledge = And(                    #(And) since there are multiple things that we know are true, as depicted below:
     Or(ColMustard, ProPlum, MsScarlet),     # only one of these people is in the envelope
-    Or(ballroon, kitchen, library), # only one of these rooms is in the envelope
+    Or(ballroom, kitchen, library), # only one of these rooms is in the envelope
     Or(knife, revolver, wrench),    # only one of these weapons is in the envelope
 )
 
@@ -53,10 +53,11 @@ knowledge.add(Or(
 
 knowledge.add(Not(ProPlum))
 
+knowledge.add(Not(ballroom)) # after adding this knowledge, the AI inferred that it must be the knife as a weapon
 
 
 print(knowledge.formula())
-# (ColMustard ∨  ProPlum ∨  MsScarlet) ∧ (ballroon ∨  kitchen ∨  library) ∧ (knife ∨  revolver ∨  wrench) ∧ (¬ColMustard) ∧ (¬kitchen) ∧ (¬revolver)
+# (ColMustard ∨  ProPlum ∨  MsScarlet) ∧ (ballroom ∨  kitchen ∨  library) ∧ (knife ∨  revolver ∨  wrench) ∧ (¬ColMustard) ∧ (¬kitchen) ∧ (¬revolver)
 
 # print(model_check(knowledge, MsScarlet))
 
@@ -64,12 +65,12 @@ print(check_knowledge(knowledge)) # not enough data for solution at this point!
 # ColMustard: NO
 # ProPlum: NO
 # MsScarlet: YES
-# ballroon: MAYBE
+# ballroom: NO
 # kitchen: NO
-# library: MAYBE
-# knife: MAYBE
+# library: YES
+# knife: YES
 # revolver: NO
-# wrench: MAYBE
+# wrench: NO
 
 
 # continue from: https://www.youtube.com/watch?v=5NgNicANyqM&t=9856s
