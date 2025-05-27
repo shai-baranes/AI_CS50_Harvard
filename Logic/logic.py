@@ -1,6 +1,7 @@
+# Propositional Logic
+
 import itertools
 
-# ?
 class Sentence():
 
     def evaluate(self, model):
@@ -15,12 +16,19 @@ class Sentence():
         """Returns a set of all symbols in the logical sentence."""
         return set()
 
-    @classmethod # TBD what if it was a class static method?
+    @classmethod # can be also defined as a '@staticmethod' as exhibits below
     def validate(cls, sentence):
         if not isinstance(sentence, Sentence):
             raise TypeError("must be a logical sentence")
 
-    @classmethod # TBD same here: what if it was a class static method?
+
+    # @staticmethod
+    # def validate(sentence):
+    #     if not isinstance(sentence, Sentence):
+    #         raise TypeError("must be a logical sentence")
+
+
+    @classmethod # can be also defined as a '@staticmethod'
     def parenthesize(cls, s):
         """Parenthesizes an expression if not already parenthesized."""
         def balanced(s):
@@ -41,7 +49,7 @@ class Sentence():
         else:
             return f"({s})"
 
-# ?
+
 class Symbol(Sentence):
 
     def __init__(self, name):

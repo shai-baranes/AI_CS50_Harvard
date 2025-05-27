@@ -28,7 +28,7 @@ def check_knowledge(knowledge):
             termcolor.cprint(f"{symbol}: YES", "green")
         elif not model_check(knowledge, Not(symbol)): # now checking if the model_check is not-true (resulting w/ True here meanign that we also don't know if the model check is False for certain)
             print(f"{symbol}: MAYBE") # the maybe here is because of the 'not' above
-        else:
+        else:  # these 2 lines were added by me (not in the original files)
             termcolor.cprint(f"{symbol}: NO", "red")
 
 

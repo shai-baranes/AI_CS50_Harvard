@@ -13,7 +13,7 @@ import warnings
 
 
 # to have user configured exception (more clearly defined); e.g. "fileInputException: maze must have exactly one start point"
-class fileInputException(Exception):
+class fileInputException(Exception):  
 	...
 
 
@@ -39,7 +39,7 @@ class StackFrontier(): # remind that a Stack is last-in first-out 'data-structur
 		# when adding neighbors to the frontier, we want to ensure that it's state is not among the current listed frontier nodes states
 		return any(node.state == state for node in self.frontier)
 
-	def empty(self):  # TBD is_empty? instead?
+	def empty(self):  # used with:  if empty()
 		return len(self.frontier) == 0
 
 
@@ -47,8 +47,9 @@ class StackFrontier(): # remind that a Stack is last-in first-out 'data-structur
 		if self.empty():
 			raise Exception("empty frontier")
 		else:
-			node = self.frontier[-1]
-			self.frontier = self.frontier[:-1] #TBD will also .pop() works here? (instead of these 2 lines)
+			# node = self.frontier[-1]
+			# self.frontier = self.frontier[:-1]
+			node = self.frontier.pop() # replacing the above 2 lines in a single line
 			return node # I guess we shall pass it to the set (since we've been visiting here)
 
 
@@ -61,7 +62,7 @@ class QueueFrontier(StackFrontier):
 			raise Exception("empty frontier")
 		else:
 			node = self.frontier[0]
-			self.frontier = self.frontier[1:] #TBD will also .pop() works here? (instead of these 2 lines)
+			self.frontier = self.frontier[1:]
 			return node # I guess we shall pass it to the set (since we've been visiting here)
 
 	
@@ -90,8 +91,8 @@ class Maze(): # getting a text file to represent a maze language by symbols
 
 
 		#Read file and set height and width of maze
-		# note thaht the build-in exception is raise anyhow to the create(cls, filename) class method
-		with open(filename) as f:  # TBD exception are missing?  (TBD I can also add self.content with setter validation to account for content inspection and proper exceptions)
+		# note that the build-in exception is raised anyhow by the create(cls, filename) class method
+		with open(filename) as f:
 			contents = f.read()
 
 
@@ -128,7 +129,7 @@ class Maze(): # getting a text file to represent a maze language by symbols
 					pass
 			self.walls.append(row)
 
-		self.solution = None # TBD can I put it higher?
+		self.solution = None
 
 
 	def print(self):
@@ -175,7 +176,7 @@ class Maze(): # getting a text file to represent a maze language by symbols
 	def solve(self): #another Maze class method
 		"""Finds a solution to maze, if one exists."""
 
-		# Keep track of number of states explored - TBD to quantify the cost?
+		# Keep track of number of states explored
 		self.num_explored = 0
 
 		# Initialize frontier to just the starting position
@@ -224,7 +225,7 @@ class Maze(): # getting a text file to represent a maze language by symbols
 
 
 def main():
-	my_maze = Maze.create(script_path / "maze2.txt") # makes it more robust (earlier it failed when using the new build system with inner directory instead of the prior root)
+	my_maze = Maze.create(script_path / "maze3.txt") # makes it more robust (earlier it failed when using the new build system with inner directory instead of the prior root)
 	# my_maze = Maze.create(".Maze/maze2.txt")
 	# my_maze = Maze("./maze2.txt") # this shall result with the warning: "UserWarning: Direct instantiation may raise exceptions. Use Maze.create() instead."
 
@@ -236,3 +237,15 @@ def main():
 if __name__ == "__main__":
 	main()
 
+
+
+
+# arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
+# print(arr.pop())
+
+# print(arr)
+# 9
+# [0, 1, 2, 3, 4, 5, 6, 7, 8]
+
+# 9

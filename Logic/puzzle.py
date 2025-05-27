@@ -99,11 +99,11 @@ for symbol in symbols:
     if model_check(knowledge, symbol):
         print(symbol)
 
-these are the valid pairs, person per house given this knowledge:
-# GilderoyRavenclaw
-# PomonaHufflepuff
-# MinervaGryffindor
-# HoraceSlytherin
+# These are the valid pairs, person per house given this knowledge:
+#       GilderoyRavenclaw
+#       PomonaHufflepuff
+#       MinervaGryffindor
+#       HoraceSlytherin
 
 
 
